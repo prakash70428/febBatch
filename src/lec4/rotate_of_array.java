@@ -1,20 +1,31 @@
 package lec4;
 
-import java.util.*;
+import java.util.Scanner;
 
-public class reverseOfArray {
+public class rotate_of_array {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		 Scanner scn = new Scanner(System.in);
+		Scanner scn = new Scanner(System.in);
 	     int n = scn.nextInt();
 	     int[] arr = new int[n];
 	     for(int i=0;i < n;i++) {
 	        arr[i] = scn.nextInt();
 	     }
-	     
-	     reverse(arr,0,arr.length - 1);
+	     int k = scn.nextInt();
+	     rotate(arr,k);
 	     display(arr);
+	}
+	
+	public static void rotate(int[] arr,int k) {
+		k = k % arr.length;
+		if(k < 0) {
+			k = k + arr.length;
+		}
+		
+		reverse(arr,0,arr.length-1);
+		reverse(arr,0,k-1);
+		reverse(arr,k,arr.length-1);
 	}
 	
 	public static void reverse(int[] arr,int left,int right) {
