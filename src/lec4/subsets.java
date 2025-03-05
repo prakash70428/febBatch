@@ -18,14 +18,14 @@ public class subsets {
 	
 	public static void PrintSubsets(int[] arr) {
 		int tns = (int)Math.pow(2,arr.length);
-		for(int i=0 ;i < tns;i++) {
+		for(int i=0;i < tns;i++) {
 			int bn = dtobin(i,2);
 			int div = (int)Math.pow(10,arr.length-1);
 			for(int j=0;j < arr.length;j++) {
 				int q = bn / div;
 				int r = bn % div;
 				if(q == 1) {
-					System.out.print(arr[j]+" ");
+					System.out.print(arr[j] + " ");
 				}else {
 					System.out.print("-" + " ");
 				}
