@@ -8,7 +8,6 @@ public class permutation {
 		// TODO Auto-generated method stub
 		 Scanner scn = new Scanner(System.in);
 	     String str = scn.nextLine();
-	        
 	     StringPermutation(str);
 	}
 
