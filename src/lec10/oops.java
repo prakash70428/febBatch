@@ -21,7 +21,7 @@ public class oops {
         
         p1.SayHi();
         p2.SayHi();
-        swap2(p1,p2);
+        swap3(p1,p2);
         p1.SayHi();
         p2.SayHi();  
 	}
