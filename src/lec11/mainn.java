@@ -54,7 +54,7 @@ public class mainn {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Deque
+		
 		CustomQueue q = new CustomQueue(5);
         q.add(10);
         q.add(20);
