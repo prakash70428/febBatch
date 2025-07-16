@@ -174,6 +174,43 @@ public class basicsll {
 			displayReverseHelper(head);
 			System.out.println();
 		}
+		
+		public void reversePRHelper(Node node) {
+			if(node == tail) {
+				return ;
+			}
+			
+			reversePRHelper(node.next);
+			node.next.next = node;
+		}
+		public void reversePR() {
+			reversePRHelper(head);
+			Node temp = this.head;
+			this.head = this.tail;
+			this.tail = temp;
+			
+			this.tail.next = null;
+		}
+		Node left;
+		public void reverseDRHelper(Node right,int counter) {
+			if(right == null) {
+				return;
+			}
+			
+			reverseDRHelper(right.next,counter+1);
+			
+			if(counter >= size/2) {
+				int temp = left.data;
+				left.data = right.data;
+				right.data = temp;				
+			}
+			
+			left = left.next;
+		}
+		public void reverseDR() {
+			this.left = this.head;
+			reverseDRHelper(head,0);
+		}
 	}
 
 	public static void main(String[] args) {
@@ -198,8 +235,11 @@ public class basicsll {
 		ll.display();
 //		ll.reverseDI();
 //		ll.reversePI();
-		ll.displayReverse();
+//		ll.displayReverse();
 //		ll.display();
+//		ll.reversePR();
+		ll.reverseDR();
+		ll.display();
 	}
 
 }
