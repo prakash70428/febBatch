@@ -67,14 +67,118 @@ public class gt {
 		return ht + 1;
 	}
 	
+	public static void levelOrder(Node node) {
+		Queue<Node> q = new ArrayDeque<>();
+		q.add(node);
+		
+		while(q.size() != 0) {
+			Node rn = q.remove();
+			System.out.print(rn.data + " ");
+			for(Node child : rn.children) {
+				q.add(child);
+			}
+		}
+		System.out.println();
+	}
+	
+	public static void traversals(Node node) {
+		//pre area
+		System.out.println("Node pre " + node.data);
+		for(Node child : node.children) {
+			System.out.println("Edge pre " + node.data+ "->" + child.data); 
+			traversals(child);
+			System.out.println("Edge post " + node.data + "->" + child.data); 
+        }
+		//post area
+		System.out.println("Node post " + node.data);
+	}
+	
+	public static void levelOrderLinewise(Node node) {
+		Queue<Node> mq = new ArrayDeque<>();
+		mq.add(node);
+		
+		Queue<Node> cq = new ArrayDeque<>();
+		
+		while(mq.size() > 0) {
+			node = mq.remove();
+			System.out.print(node.data + " ");
+			
+			for(Node child : node.children) {
+				cq.add(child);
+			}
+			
+			if(mq.size() == 0) {
+				mq = cq;
+				cq = new ArrayDeque<>();
+				System.out.println();
+			}
+		}
+	}
+	
+	public static void mirror(Node node) {
+		for(Node child : node.children) {
+			 mirror(child);
+		}
+		
+		int left = 0;
+		int right = node.children.size() - 1;
+		while(left < right) {
+			Node ln = node.children.get(left);
+			Node rn = node.children.get(right);
+			node.children.set(left,rn);
+			node.children.set(right,ln);
+			left++;
+			right--;
+		}
+	}
+	
+	public static void removeLeafes(Node node) {
+		for(int i=0;i < node.children.size();i++) {
+			Node child = node.children.get(i);
+			if(child.children.size() == 0) {
+				node.children.remove(i);
+				i--;
+			}
+		}
+
+		for(Node child : node.children) {
+			removeLeafes(child);
+		}
+	}
+	public static Node getTail(Node node) {
+		if(node.children.size() > 0) {
+			Node rr = getTail(node.children.get(0));
+			return rr;
+		}else {
+			return node;
+		}
+	}
+	public static void linearize(Node node) {
+		for(Node child : node.children) {
+			linearize(child);
+		}
+		
+		while(node.children.size() > 1) {
+			Node slkitail = getTail(node.children.get(node.children.size() - 2));
+			slkitail.children.add(node.children.get(node.children.size() - 1));
+			node.children.remove(node.children.size() - 1);
+		}
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         int[] arr = { 10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1 };
         Node root = Construct(arr);
 //        display(root);
-        System.out.println(size(root));
-        System.out.println(height(root));
+//        System.out.println(size(root));
+//        System.out.println(height(root));
+//        levelOrder(root);
+//        traversals(root); 
+//        levelOrderLinewise(root);
+//        mirror(root);
+//        removeLeafes(root);
+        linearize(root);
+        display(root);
 	}
 
 }
