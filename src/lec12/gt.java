@@ -165,6 +165,39 @@ public class gt {
 		}
 	}
 	
+	public static boolean find(Node node,int data) {
+		if(node.data == data) {
+			return true;
+		}
+		
+		for(Node child : node.children) {
+			boolean finc = find(child,data);
+			if(finc == true) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public static ArrayList<Integer> nodeToRootPath(Node node,int data){
+		if(node.data == data) {
+			ArrayList<Integer> list = new ArrayList<>();
+			list.add(node.data);
+			return list;
+		}
+		
+		for(Node child : node.children) {
+			ArrayList<Integer> ptc = nodeToRootPath(child,data);
+			if(ptc.size() > 0) {
+				ptc.add(node.data);
+				return ptc;
+			}
+		}
+		
+		return new ArrayList<>();
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         int[] arr = { 10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1 };
@@ -177,7 +210,10 @@ public class gt {
 //        levelOrderLinewise(root);
 //        mirror(root);
 //        removeLeafes(root);
-        linearize(root);
+//        linearize(root);
+//        System.out.println(find(root,500));
+        ArrayList<Integer> ans = nodeToRootPath(root,500);
+        System.out.println(ans);
         display(root);
 	}
 
