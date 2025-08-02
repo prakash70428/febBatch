@@ -198,6 +198,60 @@ public class gt {
 		return new ArrayList<>();
 	}
 	
+	public static int lca(Node node,int d1,int d2) {
+		ArrayList<Integer> al1 = nodeToRootPath(node,d1);
+		ArrayList<Integer> al2 = nodeToRootPath(node,d2);
+		
+		int i = al1.size() - 1;
+		int j = al2.size() - 1;
+		
+		while(i >= 0 && j >= 0 && al1.get(i) == al2.get(j)) {
+			i--;
+			j--;
+		}
+		
+		i++;
+		j++;
+		
+		return al1.get(i);
+		
+	}
+	
+	public static boolean areSimilar(Node n1,Node n2) {
+		if(n1.children.size() != n2.children.size()) {
+			return false;
+		}
+		
+		for(int i=0;i < n1.children.size();i++) {
+			Node c1 = n1.children.get(i);
+			Node c2 = n2.children.get(i);
+			boolean cans = areSimilar(c1,c2);
+			if(cans == false) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static int distanceBetweenTwoNodes(Node node,int d1,int d2) {
+		int dist = 0;
+		ArrayList<Integer> al1 = nodeToRootPath(node,d1);
+		ArrayList<Integer> al2 = nodeToRootPath(node,d2);
+		
+		int i = al1.size() - 1;
+		int j = al2.size() - 1;
+		
+		while(i >= 0 && j >= 0 && al1.get(i) == al2.get(j)) {
+			i--;
+			j--;
+		}
+		i++;
+		j++;
+		
+		return i+j;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         int[] arr = { 10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1 };
@@ -212,9 +266,12 @@ public class gt {
 //        removeLeafes(root);
 //        linearize(root);
 //        System.out.println(find(root,500));
-        ArrayList<Integer> ans = nodeToRootPath(root,500);
-        System.out.println(ans);
-        display(root);
+//        ArrayList<Integer> ans = nodeToRootPath(root,500);
+//        System.out.println(ans);
+//        display(root);
+        
+          System.out.println(lca(root,110,90));       
+//        System.out.println(distanceBetweenTwoNodes(root,120,100));
 	}
 
 }
