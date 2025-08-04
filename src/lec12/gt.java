@@ -252,6 +252,32 @@ public class gt {
 		return i+j;
 	}
 	
+	public static class Pair{
+		int sum;
+		int mss = Integer.MIN_VALUE;
+		Node mssnode;
+	}
+	public static Pair MaximumSubtreeSum(Node node) {
+		Pair mp = new Pair();
+		mp.sum += node.data;
+		
+		for(Node child : node.children) {
+			Pair cp = MaximumSubtreeSum(child);
+			mp.sum += cp.sum;
+			if(cp.mss > mp.mss) {
+				mp.mss = cp.mss;
+				mp.mssnode = cp.mssnode;
+			}
+		}
+		
+		if(mp.sum > mp.mss) {
+			mp.mss = mp.sum;
+			mp.mssnode = node;
+		}
+		
+		return mp;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         int[] arr = { 10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1 };
@@ -270,8 +296,11 @@ public class gt {
 //        System.out.println(ans);
 //        display(root);
         
-          System.out.println(lca(root,110,90));       
+//          System.out.println(lca(root,110,90));       
 //        System.out.println(distanceBetweenTwoNodes(root,120,100));
+        Pair ansp = MaximumSubtreeSum(root);
+        System.out.println(ansp.mssnode.data + "@" + ansp.mss);
+        
 	}
 
 }
