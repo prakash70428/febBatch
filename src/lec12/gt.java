@@ -278,6 +278,34 @@ public class gt {
 		return mp;
 	}
 	
+	public static class DPair{
+		int ht;
+		int dia;
+	}
+	public static DPair diameter(Node node) {
+		int maxh = -1;
+		int smaxh = -1;
+		int dia = 0;
+		
+		for(Node child : node.children) {
+			DPair cp = diameter(child);
+			if(cp.ht > maxh) {
+				smaxh = maxh;
+				maxh = cp.ht;
+			}
+			else if(cp.ht > smaxh) {
+				smaxh = cp.ht; 
+			}
+			dia = Math.max(dia,cp.dia);
+		}
+		
+		DPair mp = new DPair();
+		mp.ht = maxh + 1;
+		mp.dia = Math.max(dia, maxh + smaxh + 1);
+		
+		return mp;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         int[] arr = { 10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,120,-1,-1,90,-1,-1,40,100,-1,-1,-1 };
@@ -298,9 +326,11 @@ public class gt {
         
 //          System.out.println(lca(root,110,90));       
 //        System.out.println(distanceBetweenTwoNodes(root,120,100));
-        Pair ansp = MaximumSubtreeSum(root);
-        System.out.println(ansp.mssnode.data + "@" + ansp.mss);
+//        Pair ansp = MaximumSubtreeSum(root);
+//        System.out.println(ansp.mssnode.data + "@" + ansp.mss);
         
+        DPair ans = diameter(root);
+        System.out.println(ans.dia);
 	}
 
 }
